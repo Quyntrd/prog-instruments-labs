@@ -71,11 +71,11 @@ def enemy(x, y, i):
     """Draw the enemy on the screen at the given coordinates."""
     screen.blit(enemy_img[i], (x, y))
 
-def fire_bullet(x, y):
+def fire_bullet(x, y, bullet_state):
     """Move the bullet upwards and change its state to 'fire'."""
-    global bullet_state
     bullet_state = "fire"
     screen.blit(bullet_img, (x + 53, y + 10))
+    return bullet_state
 
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     """Check if a collision occurred between an enemy and the bullet."""
@@ -88,7 +88,7 @@ font = pygame.font.Font("freesansbold.ttf", 35)
 score_x = 10
 score_y = 10
 
-def show_score(x, y):
+def show_score(x, y, score_value):
     """Display the current score on the screen."""
     score = font.render("Score : " + str(score_value),
                         True, (255, 255, 255))
@@ -105,7 +105,7 @@ def game_over():
 # Final score display settings
 final_font = pygame.font.Font("freesansbold.ttf", 50)
 
-def final_score():
+def final_score(score_value):
     """Display the final score when the game ends."""
     finalscore = final_font.render("Total Score : " + str(score_value),
                                    True, (0, 255, 0))
@@ -145,10 +145,10 @@ while running:
                     bullet_sound = mixer.Sound("bulletout.wav")
                     bullet_sound.play()
 
-                    fire_bullet(bullet_x, bullet_y)
+                    bullet_state = fire_bullet(bullet_x, bullet_y, bullet_state)
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
 
     # Move the enemies and check for game over
@@ -158,7 +158,7 @@ while running:
                 enemy_y[j] = 2000
             game_over()
             time.sleep(2)
-            final_score()
+            final_score(score_value)
             break
 
         enemy_x[i] += enemy_x_change[i]
@@ -195,11 +195,11 @@ while running:
         bullet_y = 480
         bullet_state = "ready"
     if bullet_state == "fire":
-        fire_bullet(bullet_x, bullet_y)
+        fire_bullet(bullet_x, bullet_y, bullet_state)
         bullet_y -= bullet_y_change
 
     player(player_x, player_y)
-    show_score(score_x, score_y)
+    show_score(score_x, score_y, score_value)
     show_author()
 
     pygame.display.update()
