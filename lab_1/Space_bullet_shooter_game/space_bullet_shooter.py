@@ -6,12 +6,13 @@ This is a Space Bullet Shooter game using Pygame.
 Copyright © TheKnight. All Rights Reserved.
 """
 
-import pygame
-import random
 import math
+import random
 import time
 
+import pygame
 from pygame import mixer
+
 
 pygame.init()
 
