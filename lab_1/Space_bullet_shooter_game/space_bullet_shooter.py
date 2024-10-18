@@ -15,6 +15,7 @@ from pygame import mixer
 pygame.init()
 
 clock = pygame.time.Clock()
+
 # bg sound
 mixer.music.load("bg.wav")
 mixer.music.play(-1)
@@ -75,7 +76,8 @@ def fire_bullet(x, y):
 
 # checking if collision
 def is_collision(enemyX, enemyY, playerx, playery):
-    distance = math.sqrt((math.pow(enemyX - bulletX, 2)) + (math.pow(enemyY - bulletY, 2)))
+    distance = math.sqrt((math.pow(enemyX - bulletX, 2)) +
+                         (math.pow(enemyY - bulletY, 2)))
     if distance < 27:
         return True
     else:
@@ -87,7 +89,8 @@ score_cordinate_X = 10
 Score_cordinate_Y = 10
 
 def showscore(x, y):
-    score = font.render("Score : " + str(score_value), True, (255, 255, 255))
+    score = font.render("Score : " + str(score_value),
+                        True, (255, 255, 255))
     screen.blit(score, (x, y))
 
 OVER = pygame.font.Font("freesansbold.ttf", 60)
@@ -100,14 +103,16 @@ def game_over():
 final = pygame.font.Font("freesansbold.ttf", 50)
 
 def final_score():
-    finalscore = final.render("Total Score : " + str(score_value), True, (0, 255, 0))
+    finalscore = final.render("Total Score : " + str(score_value),
+                              True, (0, 255, 0))
     screen.blit(finalscore, (280, 350))
 
 author = pygame.font.Font("freesansbold.ttf", 16)
 
 # showing author name
 def author_name():
-    subject = author.render("Copyright ©2020 TheKnight All Right Reserved", True, (0, 255, 0))
+    subject = author.render("Copyright ©2020 TheKnight All Right Reserved",
+                            True, (0, 255, 0))
     screen.blit(subject, (170, 580))
 
 # game loop
